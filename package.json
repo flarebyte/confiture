@@ -1,0 +1,40 @@
+{
+  "name": "confiture",
+  "version": "0.0.0",
+  "description": "Configuration library supporting json-schema",
+  "homepage": "https://github.com/flarebyte/confiture",
+  "author": {
+    "name": "Olivier Huin",
+    "email": "npm.olivier.huin@flarebyte.com"
+  },
+  "repository": "flarebyte/confiture",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "confiture",
+    "json-schema",
+    "configuration"
+  ],
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "fs-extra": "^0.18.1",
+    "is-my-json-valid": "^2.10.1",
+    "lodash": "^3.7.0"
+  },
+  "devDependencies": {
+    "grunt-bump": "^0.3.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-cli": "^1.11.0",
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-tasks": "^1.0.0",
+    "time-grunt": "^1.0.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
