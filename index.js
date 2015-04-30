@@ -1,51 +1,30 @@
 'use strict';
-var _ = require('lodash');
 var fs = require('fs-extra');
+var zlib = require('zlib');
+var stream = require('stream');
+var Readable = stream.Readable;
+var crypto = require('crypto');
+var util = require('util');
+var path = require('path');
+var _ = require('lodash');
 var validator = require('is-my-json-valid');
+var Joi = require('joi');
+var moment=require('moment');
 
-var checkValidCompression = function(value) {
-    var valid = value === "gz";
-    if (!valid) {
-        throw new Error("Compression should be gz!");
-    }
-};
+var SPACES = 4;
 
-var checkValidEncryption = function(value) {
-    var valid = value === "bcrypt";
-    if (!valid) {
-        throw new Error("Encryption should be bcrypt!");
-    }
-};
+var ciphers_regex = "^(" + crypto.getCiphers().join('|') + ")$";
 
-var checkValidPassword = function(value) {
-    var valid = value.length > 0; //TODO
-    if (!valid) {
-        throw new Error("Password should not be empty!");
-    }
-};
-
-var checkValidSchema = function(value) {
-    var valid = value.length > 0; //TODO
-    if (!valid) {
-        throw new Error("Schema should not be empty!");
-    }
-};
-
-var checkValidName = function(value) {
-    var valid = value.length > 0; //TODO
-    if (!valid) {
-        throw new Error("Schema should not be empty!");
-    }
-
-};
-
-var checkValidDirectories = function(value) {
-    var valid = value.length > 0; //TODO
-    if (!valid) {
-        throw new Error("Schema should not be empty!");
-    }
-
-};
+var confSchema = Joi.object().keys({
+    name: Joi.string().min(2).required().description('base name for the configuration file'),
+    compression: Joi.string().regex(/^(gz)$/).optional().description('compression algorithm').example('gz'),
+    encryption: Joi.string().regex(new RegExp(ciphers_regex)).optional().description('encryption algorithm').example('aes-256-cbc'),
+    password: Joi.string().min(2).description('password for encryption'),
+    schema: [Joi.string().min(2).description('json-schema file path'), Joi.object().description('json-schema content')],
+    baseDirectory: Joi.string().min(2).required().description('parent directory containing the configuration file'),
+    relativeDirectory: Joi.string().min(2).optional().description('the child directory containing the configuration file'),
+    backupBeforeSave: Joi.boolean().default(false).description('true if the configuration file must be backup before save')
+}).with('encryption', ['password']);
 
 var isSchemaFile = function(value) {
     return _.isString(value);
@@ -71,87 +50,78 @@ var schemaValidator = function(value) {
     return validator(schema);
 };
 
+
+
 module.exports = function(config) {
-    var defaults = {
-        name: "conf",
-        directories: ["/etc"]
-    };
+    var confg = Joi.validate(config, confSchema);
 
-    var cfg = _.defaults(config, defaults);
-    //Checks configuration
+    if (!_.isNull(confg.error)) {
+        throw new Error(confg.error);
+    }
 
+    var cfg = confg.value;
 
     var isCompressed = _.has(cfg, "compression");
-    var isEncryped = _.has(cfg, "encryption");
-
-    checkValidSchema(cfg.schema);
-    checkValidName(cfg.name);
-    checkValidDirectories(cfg.directories);
-    if (isCompressed) {
-        checkValidCompression(cfg.compression);
-    }
-
-    if (isEncryped) {
-        checkValidEncryption(cfg.encryption);
-        checkValidPassword(cfg.password);
-    }
+    var isEncrypted = _.has(cfg, "encryption");
+    var hasRelativeDirectory = _.has(cfg, "relativeDirectory");
 
     var validate = schemaValidator(cfg.schema); //sync    
 
     var content = null;
-    var dirty = null;
-    var configuration = function() {
-        return cfg;
+
+
+    var getConfigurationFilename = function() {
+        var filename = cfg.name + ".json";
+        if (isEncrypted) {
+            filename = filename + "." + cfg.encryption;
+        } else if (isCompressed) {
+            filename = filename + "." + cfg.compression;
+        }
+
+        return filename;
     };
 
-    var findFirst = function() {
-        //find the first matching configuration
-    };
+    var confFilename = getConfigurationFilename();
 
-    var restore = function() {
-        dirty = content;
-    };
+    cfg.filename = confFilename;
 
+    var filepath = hasRelativeDirectory ? path.join(cfg.baseDirectory, cfg.relativeDirectory, confFilename) : path.join(cfg.baseDirectory, confFilename);
+
+    cfg.filepath = filepath;
+
+    var backup = function() {
+        var suffix = moment().format();
+        var backupFilepath = filepath + ".bak-" + suffix;
+        try {
+            fs.renameSync(filepath, backupFilepath);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     var loadJson = function() {
-        var filename = findFirst();
-        var jsonToCheck = fs.readJsonSync(filename);
-        validate(jsonToCheck);
-        content = jsonToCheck;
+        var jsonToCheck = fs.readJsonSync(filepath);
+        return jsonToCheck;
     };
 
     var loadCompressedJson = function() {
-
+        var compressed = fs.readFileSync(filepath);
+        //var jsonToCheck = zlib.gunzipSync(compressed);
+        return compressed;
     };
 
     var loadEncryptedJson = function() {
-
-    };
-
-    var saveJson = function() {
-
-    };
-
-    var saveCompressedJson = function() {
-
-    };
-
-    var saveEncryptedJson = function() {
-
-    };
-
-    var validateJson = function(data) {
-        return data != null;
+        var encrypted = fs.readFileSync(filepath);
+        var decipher = crypto.createDecipher(cfg.encryption, cfg.password);
+        var dec = decipher.update(encrypted, 'hex', 'utf8');
+        dec += decipher.final('utf8');
+        var jsonToCheck = JSON.parse(dec);
+        return jsonToCheck;
     };
 
     var load = function() {
-        var found = findFirst();
-        if (!_.isString(found)) {
-            throw new Error();
-        }
-
         var loaded = null;
-        if (isEncryped) {
+        if (isEncrypted) {
             loaded = loadEncryptedJson();
         } else if (isCompressed) {
             loaded = loadCompressedJson();
@@ -159,33 +129,75 @@ module.exports = function(config) {
             loaded = loadJson();
         }
 
-        validateJson(loaded);
-        content = loaded;
-        dirty = content;
-        return dirty;
-
-    };
-
-    var save = function() {
-        validateJson(dirty);
-        if (isEncryped) {
-            saveEncryptedJson();
-        } else if (isCompressed) {
-            saveCompressedJson();
-        } else {
-            saveJson();
+        if (!validate(loaded)) {
+            throw new Error(util.format("Failed validation while loading: %j", validate.errors));
         }
-        content = dirty;
+
+        content = loaded;
+        return content;
 
     };
 
+    var saveJson = function(wishedJson) {
+        var jsonStr = JSON.stringify(wishedJson, null, SPACES);
+        var wstream = fs.createWriteStream(filepath);
+        wstream.write(jsonStr);
+        return wstream;
+    };
+
+    var stringReader = function(str) {
+        var r = new Readable();
+        r._read = function() {
+            r.push(str);
+            r.push(null);
+        };
+        return r;
+    };
+
+    var saveCompressedJson = function(wishedJson) {
+        var jsonStr = JSON.stringify(wishedJson, null, SPACES);
+        var rstream = stringReader(jsonStr);
+        var zipstream = cfg === "gz" ? zlib.createGzip() : zlib.createGzip(); //TODO (zip?)
+        var wstream = fs.createWriteStream(filepath);
+        rstream.pipe(zipstream).pipe(wstream);
+        return wstream;
+    };
+
+    var saveEncrypedJson = function(wishedJson) {
+        var jsonStr = JSON.stringify(wishedJson, null, SPACES);
+        var rstream = stringReader(jsonStr);
+        var encryptor = crypto.createCipher(cfg.encryption, cfg.password);
+        var wstream = fs.createWriteStream(filepath);
+        rstream.pipe(encryptor).pipe(wstream);
+        return wstream;
+    };
+
+    var save = function(wishedJson) {
+        if (!validate(wishedJson)) {
+            throw new Error(util.format("Failed validation while saving: %j", validate.errors));
+        }
+        if (cfg.backupBeforeSave) {
+            backup();
+        }
+        content = wishedJson;
+        var rstream = null;
+
+        if (isEncrypted) {
+            rstream = saveEncrypedJson(wishedJson);
+        } else if (isCompressed) {
+            rstream = saveCompressedJson(wishedJson);
+        } else {
+            rstream = saveJson(wishedJson);
+        }
+
+        return rstream;
+
+    };
 
     var confiture = {
-        configuration: configuration,
-        findFirst: findFirst,
+        configuration: cfg,
         load: load,
-        restore: restore,
-        save: save,
+        save: save
     };
 
     return confiture;

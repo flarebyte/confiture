@@ -22,9 +22,12 @@
     "fs-extra": "^0.18.1",
     "glob": "^5.0.5",
     "is-my-json-valid": "^2.10.1",
-    "lodash": "^3.7.0"
+    "joi": "^6.2.0",
+    "lodash": "^3.7.0",
+    "moment": "^2.10.2"
   },
   "devDependencies": {
+    "chai": "^2.2.0",
     "grunt-bump": "^0.3.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.10.0",
