@@ -9,16 +9,14 @@ var path = require('path');
 var _ = require('lodash');
 var validator = require('is-my-json-valid');
 var Joi = require('joi');
-var moment=require('moment');
+var moment = require('moment');
 
 var SPACES = 4;
 
-var ciphers_regex = "^(" + crypto.getCiphers().join('|') + ")$";
-
 var confSchema = Joi.object().keys({
     name: Joi.string().min(2).required().description('base name for the configuration file'),
-    compression: Joi.string().regex(/^(gz)$/).optional().description('compression algorithm').example('gz'),
-    encryption: Joi.string().regex(new RegExp(ciphers_regex)).optional().description('encryption algorithm').example('aes-256-cbc'),
+    compression: Joi.string().valid('gz').optional().description('compression algorithm').example('gz'),
+    encryption: Joi.string().valid(crypto.getCiphers()).optional().description('encryption algorithm').example('aes-256-cbc'),
     password: Joi.string().min(2).description('password for encryption'),
     schema: [Joi.string().min(2).description('json-schema file path'), Joi.object().description('json-schema content')],
     baseDirectory: Joi.string().min(2).required().description('parent directory containing the configuration file'),
@@ -106,8 +104,9 @@ module.exports = function(config) {
 
     var loadCompressedJson = function() {
         var compressed = fs.readFileSync(filepath);
-        //var jsonToCheck = zlib.gunzipSync(compressed);
-        return compressed;
+        var uncompressed = zlib.gunzipSync(compressed).toString();
+        var jsonToCheck = JSON.parse(uncompressed);
+        return jsonToCheck;
     };
 
     var loadEncryptedJson = function() {
@@ -130,7 +129,7 @@ module.exports = function(config) {
         }
 
         if (!validate(loaded)) {
-            throw new Error(util.format("Failed validation while loading: %j", validate.errors));
+            return new Error(util.format("Failed validation while loading: %j", validate.errors));
         }
 
         content = loaded;
@@ -174,7 +173,7 @@ module.exports = function(config) {
 
     var save = function(wishedJson) {
         if (!validate(wishedJson)) {
-            throw new Error(util.format("Failed validation while saving: %j", validate.errors));
+            return new Error(util.format("Failed validation while saving: %j", validate.errors));
         }
         if (cfg.backupBeforeSave) {
             backup();
@@ -194,8 +193,12 @@ module.exports = function(config) {
 
     };
 
+    var getConfiguration = function() {
+        return _.clone(cfg);
+    };
+
     var confiture = {
-        configuration: cfg,
+        configuration: getConfiguration,
         load: load,
         save: save
     };

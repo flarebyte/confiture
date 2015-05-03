@@ -1,7 +1,7 @@
 {
   "name": "confiture",
   "version": "0.0.1",
-  "description": "Configuration library supporting json-schema",
+  "description": "Configuration library with validation using json-schema",
   "homepage": "https://github.com/flarebyte/confiture",
   "author": {
     "name": "Olivier Huin",
@@ -14,13 +14,15 @@
   ],
   "keywords": [
     "confiture",
+    "configuration",
+    "json",
     "json-schema",
-    "configuration"
+    "compression",
+    "gzip",
+    "encryption"
   ],
   "dependencies": {
-    "bluebird": "^2.9.24",
     "fs-extra": "^0.18.1",
-    "glob": "^5.0.5",
     "is-my-json-valid": "^2.10.1",
     "joi": "^6.2.0",
     "lodash": "^3.7.0",
