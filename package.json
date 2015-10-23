@@ -1,6 +1,6 @@
 {
   "name": "confiture",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Configuration library with validation using json-schema",
   "homepage": "https://github.com/flarebyte/confiture",
   "author": {
