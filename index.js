@@ -171,10 +171,17 @@ module.exports = function(config) {
         return wstream;
     };
 
+    var confDirectory = hasRelativeDirectory ? path.join(cfg.baseDirectory, cfg.relativeDirectory) : cfg.baseDirectory;
+    var ensureDirectory = function() {
+        fs.ensureDir(confDirectory);
+    };
+
     var save = function(wishedJson) {
         if (!validate(wishedJson)) {
             return new Error(util.format("Failed validation while saving: %j", validate.errors));
         }
+        ensureDirectory();
+
         if (cfg.backupBeforeSave) {
             backup();
         }
