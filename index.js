@@ -12,6 +12,7 @@ var Joi = require('joi');
 var moment = require('moment');
 
 var SPACES = 4;
+var OK = "OK";
 
 var confSchema = Joi.object().keys({
     name: Joi.string().min(2).required().description('base name for the configuration file'),
@@ -63,7 +64,7 @@ module.exports = function(config) {
     var isEncrypted = _.has(cfg, "encryption");
     var hasRelativeDirectory = _.has(cfg, "relativeDirectory");
 
-    var validate = schemaValidator(cfg.schema); //sync    
+    var validate = schemaValidator(cfg.schema); //sync
 
     var content = null;
 
@@ -144,6 +145,15 @@ module.exports = function(config) {
         return wstream;
     };
 
+    var saveJsonSync = function(wishedJson) {
+        try {
+          fs.writeJsonSync(filepath, wishedJson, {spaces: SPACES});
+          return OK;
+        } catch(err) {
+          return err;
+        }
+    };
+
     var stringReader = function(str) {
         var r = new Readable();
         r._read = function() {
@@ -162,6 +172,17 @@ module.exports = function(config) {
         return wstream;
     };
 
+    var saveCompressedJsonSync = function(wishedJson) {
+        var jsonStr = JSON.stringify(wishedJson, null, SPACES);
+        try {
+          var compressed = zlib.gzipSync(jsonStr);
+          fs.writeFileSync(filepath, compressed);
+          return OK;
+        } catch(err) {
+          return err;
+        }
+    };
+
     var saveEncrypedJson = function(wishedJson) {
         var jsonStr = JSON.stringify(wishedJson, null, SPACES);
         var rstream = stringReader(jsonStr);
@@ -169,6 +190,20 @@ module.exports = function(config) {
         var wstream = fs.createWriteStream(filepath);
         rstream.pipe(encryptor).pipe(wstream);
         return wstream;
+    };
+
+    var saveEncrypedJsonSync = function(wishedJson) {
+        var jsonStr = JSON.stringify(wishedJson, null, SPACES);
+        var encryptor = crypto.createCipher(cfg.encryption, cfg.password);
+        try {
+          var enc = encryptor.update(jsonStr,'utf8', 'hex');
+          enc += encryptor.final('hex');
+          var buff = new Buffer(enc, 'hex');
+          fs.writeFileSync(filepath, buff);
+          return OK;
+        } catch(err) {
+          return err;
+        }
     };
 
     var confDirectory = hasRelativeDirectory ? path.join(cfg.baseDirectory, cfg.relativeDirectory) : cfg.baseDirectory;
@@ -200,6 +235,30 @@ module.exports = function(config) {
 
     };
 
+    var saveSync = function(wishedJson) {
+        if (!validate(wishedJson)) {
+            return new Error(util.format("Failed validation while saving: %j", validate.errors));
+        }
+        ensureDirectory();
+
+        if (cfg.backupBeforeSave) {
+            backup();
+        }
+        content = wishedJson;
+        var saveResult = OK;
+
+        if (isEncrypted) {
+            saveResult = saveEncrypedJsonSync(wishedJson);
+        } else if (isCompressed) {
+            saveResult = saveCompressedJsonSync(wishedJson);
+        } else {
+            saveResult = saveJsonSync(wishedJson);
+        }
+
+        return saveResult;
+
+    };
+
     var getConfiguration = function() {
         return _.clone(cfg);
     };
@@ -207,7 +266,8 @@ module.exports = function(config) {
     var confiture = {
         configuration: getConfiguration,
         load: load,
-        save: save
+        save: save,
+        saveSync: saveSync
     };
 
     return confiture;

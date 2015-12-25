@@ -23,16 +23,16 @@ $ npm install --save confiture
 ```js
 var confiture = require('confiture');
 
-var confMng = confiture({
+var configurator = confiture({
     name: "conf",
     schema: __dirname + "/schemas/conf.schema.json",
     baseDirectory: __dirname,
     relativeDirectory: "appname"
 });
 
-var conf = confMng.load();
+var conf = configurator.load();
 //Will load __dirname/appname/conf.json
-//conf will contain the configuration data 
+//conf will contain the configuration data
 //or an Error object if the validation has failed.
 
 ```
@@ -42,7 +42,7 @@ var conf = confMng.load();
 ```js
 var confiture = require('confiture');
 
-var confMng = confiture({
+var configurator = confiture({
     name: "conf",
     schema: __dirname + "/schemas/conf.schema.json",
     baseDirectory: __dirname,
@@ -51,12 +51,34 @@ var confMng = confiture({
 
 var conf = {
 	"email": "support@mycompany.com",
-	"project": "bestProject"	
+	"project": "bestProject"
 };
 
-var stream = confMng.save(conf);
+var stream = configurator.save(conf);
 //Will save the configuration in __dirname/appname/conf.json
 //and return a stream
+//or an Error object if the validation has failed.
+```
+### Synchronously save some JSON
+
+```js
+var confiture = require('confiture');
+
+var configurator = confiture({
+    name: "conf",
+    schema: __dirname + "/schemas/conf.schema.json",
+    baseDirectory: __dirname,
+    relativeDirectory: "appname"
+});
+
+var conf = {
+	"email": "support@mycompany.com",
+	"project": "bestProject"
+};
+
+var saveResult = configurator.saveSync(conf);
+//Will save the configuration in __dirname/appname/conf.json
+//and return OK
 //or an Error object if the validation has failed.
 ```
 
@@ -67,7 +89,7 @@ Only gz is supported at the moment.
 
 ```js
 
-var confMng = confiture({
+var configurator = confiture({
     name: "conf",
     schema: __dirname + "/schemas/conf.schema.json",
     baseDirectory: __dirname,
@@ -94,7 +116,7 @@ Encrypted configuration:
 
 ```js
 
-var confMng = confiture({
+var configurator = confiture({
     name: "conf",
     schema: __dirname + "/schemas/conf.schema.json",
     baseDirectory: __dirname,
@@ -113,7 +135,7 @@ You can ask for the json file to be backed up before saving a new configuration.
 
 ```js
 
-var confMng = confiture({
+var configurator = confiture({
     name: "conf",
     schema: __dirname + "/schemas/conf.schema.json",
     baseDirectory: __dirname,
@@ -132,7 +154,7 @@ You can have an insight about the configuration by logging this:
 
 ```js
 
-console.log(confMng.configuration());
+console.log(configurator.configuration());
 
 ```
 
