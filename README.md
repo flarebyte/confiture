@@ -4,9 +4,12 @@
 
 The main goal of confiture is to provide configuration with:
 
- * systematic validation using json schema.
+ * systematic validation using JSON schema.
  * the option to compress the configuration file.
  * the option to encrypt the configuration file.
+
+
+ Optionally, the configuration could be manipulated from a CLI using commander and [json commander. ](https://github.com/flarebyte/json-commander)
 
 
 ## Install
