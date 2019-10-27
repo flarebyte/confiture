@@ -5,27 +5,29 @@ import test from 'ava';
 import fs from 'fs-extra';
 import confiture from './confiture';
 
-fs.emptyDirSync(__dirname + '/temp');
+const packSchemaPath = 'test-data/fixtures/pack.schema.json';
+const baseDirectory = 'test-data';
+fs.emptyDirSync(baseDirectory + '/temp');
 
 const lodashJson = {
   name: 'lodash',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'fixtures'
 };
 
 const badLodashJson = {
   name: 'bad-lodash',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'fixtures'
 };
 
 const readgzLodashJson = {
   name: 'read-lodash-gz',
   compression: 'gz',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'fixtures'
 };
 
@@ -33,54 +35,54 @@ const readAes128LodashJson = {
   name: 'read-lodash-aes',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'fixtures'
 };
 
 const writeLodashJson = {
   name: 'write-lodash',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
 const writeSyncLodashJson = {
   name: 'write-sync-lodash',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
 const writeLodashJsonWithBackup = {
   name: 'write-lodash-bak',
   backupBeforeSave: true,
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
 const writeSyncLodashJsonWithBackup = {
   name: 'write-sync-lodash-bak',
   backupBeforeSave: true,
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
 const writeGzLodashJson = {
   name: 'write-lodash',
   compression: 'gz',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
 const writeSyncGzLodashJson = {
   name: 'write-sync-lodash',
   compression: 'gz',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
@@ -88,8 +90,8 @@ const writeAes128LodashJson = {
   name: 'write-lodash',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
@@ -97,8 +99,8 @@ const writeSyncAes128LodashJson = {
   name: 'write-sync-lodash',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
-  schema: __dirname + '/test-data/fixtures/pack.schema.json',
-  baseDirectory: __dirname,
+  schema: packSchemaPath,
+  baseDirectory,
   relativeDirectory: 'temp'
 };
 
@@ -118,11 +120,8 @@ test('must load and validate simple json', t => {
 });
 
 test('must not load and validate bad json', t => {
-  t.is(
-    confiture(badLodashJson).load(),
-    Error,
-    'should detect misconfiguration'
-  );
+  const error = t.throws(() => confiture(badLodashJson).load(), Error);
+  t.truthy(error.message);
 });
 
 test('must load and validate compressed json', t => {

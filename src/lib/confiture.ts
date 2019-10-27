@@ -85,7 +85,7 @@ interface Confiture {
 export default function confiture(config: object): Confiture {
   const confg = confSchema.validate(config);
 
-  if (!_.isNull(confg.error)) {
+  if (!_.isUndefined(confg.error)) {
     throw new Error(confg.error.message);
   }
 
