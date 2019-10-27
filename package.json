@@ -25,9 +25,10 @@
     "node": ">= 8.11.0"
   },
   "dependencies": {
+    "@hapi/joi": "^16.1.7",
+    "@types/hapi__joi": "^16.0.2",
     "fs-extra": "^8.1.0",
     "is-my-json-valid": "^2.20.0",
-    "@hapi/joi": "^16.1.7",
     "lodash": "^4.17.15",
     "moment": "^2.24.0"
   },

@@ -1,8 +1,7 @@
 /*global describe, it */
 'use strict';
-let fs = require('fs-extra');
-let assert = require('chai').assert;
-let confiture = require('../');
+import  fs from 'fs-extra';
+import confiture from '.';
 
 fs.emptyDirSync(__dirname + '/temp');
 

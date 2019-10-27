@@ -1,20 +1,20 @@
 'use strict';
-let fs = require('fs-extra');
-let zlib = require('zlib');
-let stream = require('stream');
-let Readable = stream.Readable;
-let crypto = require('crypto');
-let util = require('util');
-let path = require('path');
-let _ = require('lodash');
-let validator = require('is-my-json-valid');
-let Joi = require('joi');
-let moment = require('moment');
+import fs from 'fs-extra';
+import  zlib from 'zlib';
+import  stream from'stream';
+const Readable = stream.Readable;
+import  crypto from 'crypto';
+import  util from 'util';
+import  path from 'path';
+import  _ from 'lodash';
+import  validator from 'is-my-json-valid';
+import  Joi from '@hapi/joi';
+import  moment from 'moment';
 
-let SPACES = 4;
-let OK = 'OK';
+const SPACES = 4;
+const OK = 'OK';
 
-let confSchema = Joi.object()
+const confSchema = Joi.object()
   .keys({
     name: Joi.string()
       .min(2)
@@ -53,15 +53,15 @@ let confSchema = Joi.object()
   })
   .with('encryption', ['password']);
 
-let isSchemaFile = function(value) {
+const isSchemaFile = function(value: any) {
   return _.isString(value);
 };
 
-let isSchemaContent = function(value) {
+const isSchemaContent = function(value: any) {
   return _.isPlainObject(value);
 };
 
-let loadSchema = function(value) {
+const loadSchema = function(value: any) {
   if (isSchemaContent(value)) {
     return value;
   } else if (isSchemaFile(value)) {
@@ -71,29 +71,30 @@ let loadSchema = function(value) {
   }
 };
 
-let schemaValidator = function(value) {
-  let schema = loadSchema(value);
+const schemaValidator = function(value: any) {
+  const schema = loadSchema(value);
   return validator(schema);
 };
 
-module.exports = function(config) {
-  let confg = Joi.validate(config, confSchema);
+module.exports = function(config: object) {
+
+  const confg = confSchema.validate(config);
 
   if (!_.isNull(confg.error)) {
-    throw new Error(confg.error);
+    throw new Error(confg.error.message);
   }
 
-  let cfg = confg.value;
+  const cfg = confg.value;
 
-  let isCompressed = _.has(cfg, 'compression');
-  let isEncrypted = _.has(cfg, 'encryption');
-  let hasRelativeDirectory = _.has(cfg, 'relativeDirectory');
+  const isCompressed = _.has(cfg, 'compression');
+  const isEncrypted = _.has(cfg, 'encryption');
+  const hasRelativeDirectory = _.has(cfg, 'relativeDirectory');
 
-  let validate = schemaValidator(cfg.schema); // sync
+  const validate = schemaValidator(cfg.schema); // sync
 
   let content = null;
 
-  let getConfigurationFilename = function() {
+  const getConfigurationFilename = function() {
     let filename = cfg.name + '.json';
     if (isEncrypted) {
       filename = filename + '.' + cfg.encryption;
@@ -114,9 +115,9 @@ module.exports = function(config) {
 
   cfg.filepath = filepath;
 
-  let backup = function() {
-    let suffix = moment().format();
-    let backupFilepath = filepath + '.bak-' + suffix;
+  const backup = function() {
+    const suffix = moment().format();
+    const backupFilepath = filepath + '.bak-' + suffix;
     try {
       fs.renameSync(filepath, backupFilepath);
     } catch (e) {
@@ -124,28 +125,28 @@ module.exports = function(config) {
     }
   };
 
-  let loadJson = function() {
-    let jsonToCheck = fs.readJsonSync(filepath);
+  const loadJson = function() {
+    const jsonToCheck = fs.readJsonSync(filepath);
     return jsonToCheck;
   };
 
-  let loadCompressedJson = function() {
-    let compressed = fs.readFileSync(filepath);
-    let uncompressed = zlib.gunzipSync(compressed).toString();
-    let jsonToCheck = JSON.parse(uncompressed);
+  const loadCompressedJson = function() {
+    const compressed = fs.readFileSync(filepath);
+    const uncompressed = zlib.gunzipSync(compressed).toString();
+    const jsonToCheck = JSON.parse(uncompressed);
     return jsonToCheck;
   };
 
-  let loadEncryptedJson = function() {
-    let encrypted = fs.readFileSync(filepath);
-    let decipher = crypto.createDecipher(cfg.encryption, cfg.password);
-    let dec = decipher.update(encrypted, 'hex', 'utf8');
+  const loadEncryptedJson = function() {
+    const encrypted = fs.readFileSync(filepath);
+    const decipher = crypto.createDecipher(cfg.encryption, cfg.password);
+    let dec = decipher.update(encrypted, undefined, 'utf8');
     dec += decipher.final('utf8');
-    let jsonToCheck = JSON.parse(dec);
+    const jsonToCheck = JSON.parse(dec);
     return jsonToCheck;
   };
 
-  let load = function() {
+  const load = function() {
     let loaded = null;
     if (isEncrypted) {
       loaded = loadEncryptedJson();
@@ -165,14 +166,14 @@ module.exports = function(config) {
     return content;
   };
 
-  let saveJson = function(wishedJson) {
-    let jsonStr = JSON.stringify(wishedJson, null, SPACES);
-    let wstream = fs.createWriteStream(filepath);
+  const saveJson = function(wishedJson: object) {
+    const jsonStr = JSON.stringify(wishedJson, null, SPACES);
+    const wstream = fs.createWriteStream(filepath);
     wstream.write(jsonStr);
     return wstream;
   };
 
-  let saveJsonSync = function(wishedJson) {
+  const saveJsonSync = function(wishedJson: object) {
     try {
       fs.writeJsonSync(filepath, wishedJson, { spaces: SPACES });
       return OK;
@@ -181,8 +182,8 @@ module.exports = function(config) {
     }
   };
 
-  let stringReader = function(str) {
-    let r = new Readable();
+  const stringReader = function(str: string) {
+    const r = new Readable();
     r._read = function() {
       r.push(str);
       r.push(null);
@@ -190,19 +191,19 @@ module.exports = function(config) {
     return r;
   };
 
-  let saveCompressedJson = function(wishedJson) {
-    let jsonStr = JSON.stringify(wishedJson, null, SPACES);
-    let rstream = stringReader(jsonStr);
-    let zipstream = cfg === 'gz' ? zlib.createGzip() : zlib.createGzip(); // TODO (zip?)
-    let wstream = fs.createWriteStream(filepath);
+  const saveCompressedJson = function(wishedJson: object) {
+    const jsonStr = JSON.stringify(wishedJson, null, SPACES);
+    const rstream = stringReader(jsonStr);
+    const zipstream = cfg === 'gz' ? zlib.createGzip() : zlib.createGzip(); // TODO (zip?)
+    const wstream = fs.createWriteStream(filepath);
     rstream.pipe(zipstream).pipe(wstream);
     return wstream;
   };
 
-  let saveCompressedJsonSync = function(wishedJson) {
-    let jsonStr = JSON.stringify(wishedJson, null, SPACES);
+  const saveCompressedJsonSync = function(wishedJson: object) {
+    const jsonStr = JSON.stringify(wishedJson, null, SPACES);
     try {
-      let compressed = zlib.gzipSync(jsonStr);
+      const compressed = zlib.gzipSync(jsonStr);
       fs.writeFileSync(filepath, compressed);
       return OK;
     } catch (err) {
@@ -210,18 +211,18 @@ module.exports = function(config) {
     }
   };
 
-  let saveEncrypedJson = function(wishedJson) {
-    let jsonStr = JSON.stringify(wishedJson, null, SPACES);
-    let rstream = stringReader(jsonStr);
-    let encryptor = crypto.createCipher(cfg.encryption, cfg.password);
-    let wstream = fs.createWriteStream(filepath);
+  const saveEncrypedJson = function(wishedJson: object) {
+    const jsonStr = JSON.stringify(wishedJson, null, SPACES);
+    const rstream = stringReader(jsonStr);
+    const encryptor = crypto.createCipher(cfg.encryption, cfg.password);
+    const wstream = fs.createWriteStream(filepath);
     rstream.pipe(encryptor).pipe(wstream);
     return wstream;
   };
 
-  let saveEncrypedJsonSync = function(wishedJson) {
-    let jsonStr = JSON.stringify(wishedJson, null, SPACES);
-    let encryptor = crypto.createCipher(cfg.encryption, cfg.password);
+  const saveEncrypedJsonSync = function(wishedJson: object) {
+    const jsonStr = JSON.stringify(wishedJson, null, SPACES);
+    const encryptor = crypto.createCipher(cfg.encryption, cfg.password);
     try {
       let enc = encryptor.update(jsonStr, 'utf8', 'hex');
       enc += encryptor.final('hex');
@@ -233,14 +234,14 @@ module.exports = function(config) {
     }
   };
 
-  let confDirectory = hasRelativeDirectory
+  const confDirectory = hasRelativeDirectory
     ? path.join(cfg.baseDirectory, cfg.relativeDirectory)
     : cfg.baseDirectory;
-  let ensureDirectory = function() {
+  const ensureDirectory = function() {
     fs.ensureDir(confDirectory);
   };
 
-  let save = function(wishedJson) {
+  const save = function(wishedJson: object) {
     if (!validate(wishedJson)) {
       return new Error(
         util.format('Failed validation while saving: %j', validate.errors)
@@ -265,7 +266,7 @@ module.exports = function(config) {
     return rstream;
   };
 
-  let saveSync = function(wishedJson) {
+  const saveSync = function(wishedJson: object) {
     if (!validate(wishedJson)) {
       return new Error(
         util.format('Failed validation while saving: %j', validate.errors)
@@ -290,11 +291,11 @@ module.exports = function(config) {
     return saveResult;
   };
 
-  let getConfiguration = function() {
+  const getConfiguration = function() {
     return _.clone(cfg);
   };
 
-  let confiture = {
+  const confiture = {
     configuration: getConfiguration,
     load,
     save,
