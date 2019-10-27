@@ -13,20 +13,23 @@
       "typedef": [true, "call-signature"],
   
       // Immutability rules
-      "readonly-keyword": true,
-      "readonly-array": true,
-      "no-let": true,
-      "no-object-mutation": true,
+      // project migrated from old style so too much effort to support immutability now
+      "readonly-keyword": false,
+      "readonly-array": false,
+      "no-let": false,
+      "no-object-mutation": false,
       "no-delete": true,
-      "no-method-signature": true,
+      "no-method-signature": false,
   
       // Functional style rules
       "no-this": true,
       "no-class": true,
-      "no-mixed-interface": true,
+      "no-mixed-interface": false,
       "no-expression-statement": false,
-      "no-if-statement": true
+      "no-if-statement": false, //for backward compatibility
       /* end tslint-immutable rules */
+      "object-literal-sort-keys": false,
+      "no-console": false
     }
   }
   
