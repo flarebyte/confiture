@@ -140,7 +140,9 @@ test('must load and validate encryped json', t => {
 test('must save and validate simple json', t => {
   const json = confiture(lodashJson).load();
   const stream = confiture(writeLodashJson).save(json);
-  stream.on('error', displayError);
+  if ((stream as fs.WriteStream).on) {
+    (stream as fs.WriteStream).on('error', displayError);
+  }
   t.not(stream, null);
 });
 
@@ -154,7 +156,9 @@ test('must save and validate simple json with backup', t => {
   const json = confiture(lodashJson).load();
   fs.writeJsonSync(__dirname + '/temp/write-lodash-bak.json', json);
   const stream = confiture(writeLodashJsonWithBackup).save(json);
-  stream.on('error', displayError);
+  if ((stream as fs.WriteStream).on) {
+    (stream as fs.WriteStream).on('error', displayError);
+  }
   t.not(stream, null);
 });
 
@@ -168,7 +172,9 @@ test('must save and validate simple json with backup synchronously', t => {
 test('must validate, compress, save json', t => {
   const json = confiture(lodashJson).load();
   const stream = confiture(writeGzLodashJson).save(json);
-  stream.on('error', displayError);
+  if ((stream as fs.WriteStream).on) {
+    (stream as fs.WriteStream).on('error', displayError);
+  }
   t.not(stream, null);
 });
 
@@ -181,7 +187,9 @@ test('must validate, compress, save json synchronously', t => {
 test('must validate, encrypt, save json', t => {
   const json = confiture(lodashJson).load();
   const stream = confiture(writeAes128LodashJson).save(json);
-  stream.on('error', displayError);
+  if ((stream as fs.WriteStream).on) {
+    (stream as fs.WriteStream).on('error', displayError);
+  }
   t.not(stream, null);
 });
 
