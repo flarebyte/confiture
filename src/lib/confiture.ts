@@ -26,7 +26,7 @@ const confSchema = Joi.object()
       .description('compression algorithm')
       .example('gz'),
     encryption: Joi.string()
-      .valid(crypto.getCiphers())
+      // .valid(crypto.getCiphers())
       .optional()
       .description('encryption algorithm')
       .example('aes-256-cbc'),

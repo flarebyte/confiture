@@ -9,14 +9,14 @@ fs.emptyDirSync(__dirname + '/temp');
 
 const lodashJson = {
   name: 'lodash',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'fixtures'
 };
 
 const badLodashJson = {
   name: 'bad-lodash',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'fixtures'
 };
@@ -24,7 +24,7 @@ const badLodashJson = {
 const readgzLodashJson = {
   name: 'read-lodash-gz',
   compression: 'gz',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'fixtures'
 };
@@ -33,21 +33,21 @@ const readAes128LodashJson = {
   name: 'read-lodash-aes',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'fixtures'
 };
 
 const writeLodashJson = {
   name: 'write-lodash',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
 
 const writeSyncLodashJson = {
   name: 'write-sync-lodash',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
@@ -55,7 +55,7 @@ const writeSyncLodashJson = {
 const writeLodashJsonWithBackup = {
   name: 'write-lodash-bak',
   backupBeforeSave: true,
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
@@ -63,7 +63,7 @@ const writeLodashJsonWithBackup = {
 const writeSyncLodashJsonWithBackup = {
   name: 'write-sync-lodash-bak',
   backupBeforeSave: true,
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
@@ -71,7 +71,7 @@ const writeSyncLodashJsonWithBackup = {
 const writeGzLodashJson = {
   name: 'write-lodash',
   compression: 'gz',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
@@ -79,7 +79,7 @@ const writeGzLodashJson = {
 const writeSyncGzLodashJson = {
   name: 'write-sync-lodash',
   compression: 'gz',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
@@ -88,7 +88,7 @@ const writeAes128LodashJson = {
   name: 'write-lodash',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
@@ -97,7 +97,7 @@ const writeSyncAes128LodashJson = {
   name: 'write-sync-lodash',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
-  schema: __dirname + '/fixtures/pack.schema.json',
+  schema: __dirname + '/test-data/fixtures/pack.schema.json',
   baseDirectory: __dirname,
   relativeDirectory: 'temp'
 };
