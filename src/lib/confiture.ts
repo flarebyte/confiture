@@ -77,12 +77,12 @@ const schemaValidator = (value: any) => {
 };
 
 interface Confiture {
-  configuration: object;
-  load: any;
-  save(conf: object): object;
+  configuration(): any;
+  load(): any;
+  save(conf: object): fs.WriteStream | Error;
   saveSync(conf: object): string | Error;
 }
-export function confiture(config: object): Confiture {
+export default function confiture(config: object): Confiture {
   const confg = confSchema.validate(config);
 
   if (!_.isNull(confg.error)) {
@@ -205,7 +205,7 @@ export function confiture(config: object): Confiture {
     return wstream;
   };
 
-  const saveCompressedJsonSync = (wishedJson: object)=> {
+  const saveCompressedJsonSync = (wishedJson: object) => {
     const jsonStr = JSON.stringify(wishedJson, null, SPACES);
     try {
       const compressed = zlib.gzipSync(jsonStr);
@@ -246,7 +246,7 @@ export function confiture(config: object): Confiture {
     fs.ensureDir(confDirectory);
   };
 
-  const save = (wishedJson: object) =>{
+  const save = (wishedJson: object): fs.WriteStream | Error => {
     if (!validate(wishedJson)) {
       return new Error(
         util.format('Failed validation while saving: %j', validate.errors)
