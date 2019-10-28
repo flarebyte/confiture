@@ -6,10 +6,10 @@ const Readable = stream.Readable;
 import Joi from '@hapi/joi';
 import crypto from 'crypto';
 import validator from 'is-my-json-valid';
-import _ from 'lodash';
 import moment from 'moment';
 import path from 'path';
 import util from 'util';
+import { clone, has, isPlainObject, isString } from './barrel';
 
 const SPACES = 4;
 const OK = 'OK';
@@ -54,11 +54,11 @@ const confSchema = Joi.object()
   .with('encryption', ['password']);
 
 const isSchemaFile = (value: any) => {
-  return _.isString(value);
+  return isString(value);
 };
 
 const isSchemaContent = (value: any) => {
-  return _.isPlainObject(value);
+  return isPlainObject(value);
 };
 
 const loadSchema = (value: any) => {
@@ -85,15 +85,15 @@ interface Confiture {
 export default function confiture(config: object): Confiture {
   const confg = confSchema.validate(config);
 
-  if (!_.isUndefined(confg.error)) {
+  if (typeof confg.error !== 'undefined') {
     throw new Error(confg.error.message);
   }
 
   const cfg = confg.value;
 
-  const isCompressed = _.has(cfg, 'compression');
-  const isEncrypted = _.has(cfg, 'encryption');
-  const hasRelativeDirectory = _.has(cfg, 'relativeDirectory');
+  const isCompressed = has(cfg, 'compression');
+  const isEncrypted = has(cfg, 'encryption');
+  const hasRelativeDirectory = has(cfg, 'relativeDirectory');
 
   const validate = schemaValidator(cfg.schema); // sync
 
@@ -297,7 +297,7 @@ export default function confiture(config: object): Confiture {
   };
 
   const getConfiguration = () => {
-    return _.clone(cfg);
+    return clone(cfg);
   };
 
   return {
