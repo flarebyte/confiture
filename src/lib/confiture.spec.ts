@@ -120,8 +120,11 @@ test('must load and validate simple json', t => {
 });
 
 test('must not load and validate bad json', t => {
-  const error = t.throws(() => confiture(badLodashJson).load(), Error);
-  t.truthy(error.message);
+  const error = confiture(badLodashJson).load();
+  t.is(
+    error.message,
+    'Failed validation while loading: [{"field":"data.license","message":"is required"},{"field":"data.main","message":"is required"}]'
+  );
 });
 
 test('must load and validate compressed json', t => {
@@ -153,7 +156,7 @@ test('must save and validate simple json synchronously', t => {
 
 test('must save and validate simple json with backup', t => {
   const json = confiture(lodashJson).load();
-  fs.writeJsonSync(__dirname + '/temp/write-lodash-bak.json', json);
+  fs.writeJsonSync(baseDirectory + '/temp/write-lodash-bak.json', json);
   const stream = confiture(writeLodashJsonWithBackup).save(json);
   if ((stream as fs.WriteStream).on) {
     (stream as fs.WriteStream).on('error', displayError);
@@ -163,7 +166,7 @@ test('must save and validate simple json with backup', t => {
 
 test('must save and validate simple json with backup synchronously', t => {
   const json = confiture(lodashJson).load();
-  fs.writeJsonSync(__dirname + '/temp/write-sync-lodash-bak.json', json);
+  fs.writeJsonSync(baseDirectory + '/temp/write-sync-lodash-bak.json', json);
   const result = confiture(writeSyncLodashJsonWithBackup).saveSync(json);
   t.is(result, 'OK');
 });
