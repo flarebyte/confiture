@@ -11,6 +11,7 @@ The main goal of confiture is to provide configuration with:
 
  Optionally, the configuration could be manipulated from a CLI using commander and [json commander. ](https://github.com/flarebyte/json-commander)
 
+Version V2.x has been migrated from Javascript to Typescript.
 
 ## Install
 
