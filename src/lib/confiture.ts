@@ -53,6 +53,17 @@ const confSchema = Joi.object()
   })
   .with('encryption', ['password']);
 
+export interface ConfitureConfiguration {
+  name: string;
+  compression?: string;
+  encryption?: string;
+  password?: string;
+  schema: string | object;
+  baseDirectory: string;
+  relativeDirectory?: string;
+  backupBeforeSave?: boolean;
+}
+
 const isSchemaFile = (value: any) => {
   return isString(value);
 };
@@ -76,13 +87,13 @@ const schemaValidator = (value: any) => {
   return validator(schema);
 };
 
-interface Confiture {
+export interface Confiture {
   configuration(): any;
   load(): any;
   save(conf: object): fs.WriteStream | Error;
   saveSync(conf: object): string | Error;
 }
-export default function confiture(config: object): Confiture {
+export function confiture(config: ConfitureConfiguration): Confiture {
   const confg = confSchema.validate(config);
 
   if (typeof confg.error !== 'undefined') {
