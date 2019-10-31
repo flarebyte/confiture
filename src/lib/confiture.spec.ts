@@ -3,27 +3,27 @@
 
 import test from 'ava';
 import fs from 'fs-extra';
-import { Configuration, confiture } from './confiture';
+import { confiture, ConfitureConfiguration } from './confiture';
 
 const packSchemaPath = 'test-data/fixtures/pack.schema.json';
 const baseDirectory = 'test-data';
 fs.emptyDirSync(baseDirectory + '/temp');
 
-const lodashJson: Configuration = {
+const lodashJson: ConfitureConfiguration = {
   name: 'lodash',
   schema: packSchemaPath,
   baseDirectory,
   relativeDirectory: 'fixtures'
 };
 
-const badLodashJson : Configuration= {
+const badLodashJson: ConfitureConfiguration = {
   name: 'bad-lodash',
   schema: packSchemaPath,
   baseDirectory,
   relativeDirectory: 'fixtures'
 };
 
-const readgzLodashJson : Configuration = {
+const readgzLodashJson: ConfitureConfiguration = {
   name: 'read-lodash-gz',
   compression: 'gz',
   schema: packSchemaPath,
@@ -31,7 +31,7 @@ const readgzLodashJson : Configuration = {
   relativeDirectory: 'fixtures'
 };
 
-const readAes128LodashJson : Configuration = {
+const readAes128LodashJson: ConfitureConfiguration = {
   name: 'read-lodash-aes',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
@@ -40,21 +40,21 @@ const readAes128LodashJson : Configuration = {
   relativeDirectory: 'fixtures'
 };
 
-const writeLodashJson : Configuration = {
+const writeLodashJson: ConfitureConfiguration = {
   name: 'write-lodash',
   schema: packSchemaPath,
   baseDirectory,
   relativeDirectory: 'temp'
 };
 
-const writeSyncLodashJson : Configuration = {
+const writeSyncLodashJson: ConfitureConfiguration = {
   name: 'write-sync-lodash',
   schema: packSchemaPath,
   baseDirectory,
   relativeDirectory: 'temp'
 };
 
-const writeLodashJsonWithBackup : Configuration = {
+const writeLodashJsonWithBackup: ConfitureConfiguration = {
   name: 'write-lodash-bak',
   backupBeforeSave: true,
   schema: packSchemaPath,
@@ -62,7 +62,7 @@ const writeLodashJsonWithBackup : Configuration = {
   relativeDirectory: 'temp'
 };
 
-const writeSyncLodashJsonWithBackup : Configuration = {
+const writeSyncLodashJsonWithBackup: ConfitureConfiguration = {
   name: 'write-sync-lodash-bak',
   backupBeforeSave: true,
   schema: packSchemaPath,
@@ -70,7 +70,7 @@ const writeSyncLodashJsonWithBackup : Configuration = {
   relativeDirectory: 'temp'
 };
 
-const writeGzLodashJson : Configuration = {
+const writeGzLodashJson: ConfitureConfiguration = {
   name: 'write-lodash',
   compression: 'gz',
   schema: packSchemaPath,
@@ -78,7 +78,7 @@ const writeGzLodashJson : Configuration = {
   relativeDirectory: 'temp'
 };
 
-const writeSyncGzLodashJson : Configuration = {
+const writeSyncGzLodashJson: ConfitureConfiguration = {
   name: 'write-sync-lodash',
   compression: 'gz',
   schema: packSchemaPath,
@@ -86,7 +86,7 @@ const writeSyncGzLodashJson : Configuration = {
   relativeDirectory: 'temp'
 };
 
-const writeAes128LodashJson : Configuration = {
+const writeAes128LodashJson: ConfitureConfiguration = {
   name: 'write-lodash',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
@@ -95,7 +95,7 @@ const writeAes128LodashJson : Configuration = {
   relativeDirectory: 'temp'
 };
 
-const writeSyncAes128LodashJson : Configuration = {
+const writeSyncAes128LodashJson: ConfitureConfiguration = {
   name: 'write-sync-lodash',
   encryption: 'aes-256-cbc',
   password: 'confiture rocks',
