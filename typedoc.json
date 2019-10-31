@@ -5,21 +5,25 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 1,
+			"id": 10,
 			"name": "Confiture",
 			"kind": 256,
 			"kindString": "Interface",
-			"flags": {},
+			"flags": {
+				"isExported": true
+			},
 			"children": [
 				{
-					"id": 2,
+					"id": 11,
 					"name": "configuration",
 					"kind": 2048,
 					"kindString": "Method",
-					"flags": {},
+					"flags": {
+						"isExported": true
+					},
 					"signatures": [
 						{
-							"id": 3,
+							"id": 12,
 							"name": "configuration",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -33,20 +37,22 @@
 					"sources": [
 						{
 							"fileName": "lib/confiture.ts",
-							"line": 80,
+							"line": 91,
 							"character": 15
 						}
 					]
 				},
 				{
-					"id": 4,
+					"id": 13,
 					"name": "load",
 					"kind": 2048,
 					"kindString": "Method",
-					"flags": {},
+					"flags": {
+						"isExported": true
+					},
 					"signatures": [
 						{
-							"id": 5,
+							"id": 14,
 							"name": "load",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -60,27 +66,29 @@
 					"sources": [
 						{
 							"fileName": "lib/confiture.ts",
-							"line": 81,
+							"line": 92,
 							"character": 6
 						}
 					]
 				},
 				{
-					"id": 6,
+					"id": 15,
 					"name": "save",
 					"kind": 2048,
 					"kindString": "Method",
-					"flags": {},
+					"flags": {
+						"isExported": true
+					},
 					"signatures": [
 						{
-							"id": 7,
+							"id": 16,
 							"name": "save",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 8,
+									"id": 17,
 									"name": "conf",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -109,27 +117,29 @@
 					"sources": [
 						{
 							"fileName": "lib/confiture.ts",
-							"line": 82,
+							"line": 93,
 							"character": 6
 						}
 					]
 				},
 				{
-					"id": 9,
+					"id": 18,
 					"name": "saveSync",
 					"kind": 2048,
 					"kindString": "Method",
-					"flags": {},
+					"flags": {
+						"isExported": true
+					},
 					"signatures": [
 						{
-							"id": 10,
+							"id": 19,
 							"name": "saveSync",
 							"kind": 4096,
 							"kindString": "Call signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 11,
+									"id": 20,
 									"name": "conf",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -158,7 +168,7 @@
 					"sources": [
 						{
 							"fileName": "lib/confiture.ts",
-							"line": 83,
+							"line": 94,
 							"character": 10
 						}
 					]
@@ -169,23 +179,280 @@
 					"title": "Methods",
 					"kind": 2048,
 					"children": [
-						2,
-						4,
-						6,
-						9
+						11,
+						13,
+						15,
+						18
 					]
 				}
 			],
 			"sources": [
 				{
 					"fileName": "lib/confiture.ts",
-					"line": 79,
-					"character": 19
+					"line": 90,
+					"character": 26
 				}
 			]
 		},
 		{
-			"id": 14,
+			"id": 1,
+			"name": "ConfitureConfiguration",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {
+				"isExported": true
+			},
+			"children": [
+				{
+					"id": 9,
+					"name": "backupBeforeSave",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 64,
+							"character": 18
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "intrinsic",
+								"name": "undefined"
+							},
+							{
+								"type": "intrinsic",
+								"name": "false"
+							},
+							{
+								"type": "intrinsic",
+								"name": "true"
+							}
+						]
+					}
+				},
+				{
+					"id": 7,
+					"name": "baseDirectory",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 62,
+							"character": 15
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 3,
+					"name": "compression",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 58,
+							"character": 13
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "intrinsic",
+								"name": "undefined"
+							},
+							{
+								"type": "intrinsic",
+								"name": "string"
+							}
+						]
+					}
+				},
+				{
+					"id": 4,
+					"name": "encryption",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 59,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "intrinsic",
+								"name": "undefined"
+							},
+							{
+								"type": "intrinsic",
+								"name": "string"
+							}
+						]
+					}
+				},
+				{
+					"id": 2,
+					"name": "name",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 57,
+							"character": 6
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 5,
+					"name": "password",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 60,
+							"character": 10
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "intrinsic",
+								"name": "undefined"
+							},
+							{
+								"type": "intrinsic",
+								"name": "string"
+							}
+						]
+					}
+				},
+				{
+					"id": 8,
+					"name": "relativeDirectory",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true,
+						"isOptional": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 63,
+							"character": 19
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "intrinsic",
+								"name": "undefined"
+							},
+							{
+								"type": "intrinsic",
+								"name": "string"
+							}
+						]
+					}
+				},
+				{
+					"id": 6,
+					"name": "schema",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "lib/confiture.ts",
+							"line": 61,
+							"character": 8
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "intrinsic",
+								"name": "any"
+							}
+						]
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						9,
+						7,
+						3,
+						4,
+						2,
+						5,
+						8,
+						6
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "lib/confiture.ts",
+					"line": 56,
+					"character": 39
+				}
+			]
+		},
+		{
+			"id": 23,
 			"name": "OK",
 			"kind": 32,
 			"kindString": "Variable",
@@ -206,7 +473,7 @@
 			"defaultValue": "\"OK\""
 		},
 		{
-			"id": 12,
+			"id": 21,
 			"name": "Readable",
 			"kind": 32,
 			"kindString": "Variable",
@@ -227,7 +494,7 @@
 			"defaultValue": " stream.Readable"
 		},
 		{
-			"id": 13,
+			"id": 22,
 			"name": "SPACES",
 			"kind": 32,
 			"kindString": "Variable",
@@ -248,7 +515,7 @@
 			"defaultValue": "4"
 		},
 		{
-			"id": 34,
+			"id": 43,
 			"name": "baseDirectory",
 			"kind": 32,
 			"kindString": "Variable",
@@ -269,7 +536,7 @@
 			"defaultValue": "\"test-data\""
 		},
 		{
-			"id": 15,
+			"id": 24,
 			"name": "confSchema",
 			"kind": 32,
 			"kindString": "Variable",
@@ -290,7 +557,7 @@
 			"defaultValue": " Joi.object()\n  .keys({\n    name: Joi.string()\n      .min(2)\n      .required()\n      .description('base name for the configuration file'),\n    compression: Joi.string()\n      .valid('gz')\n      .optional()\n      .description('compression algorithm')\n      .example('gz'),\n    encryption: Joi.string()\n      // .valid(crypto.getCiphers())\n      .optional()\n      .description('encryption algorithm')\n      .example('aes-256-cbc'),\n    password: Joi.string()\n      .min(2)\n      .description('password for encryption'),\n    schema: [\n      Joi.string()\n        .min(2)\n        .description('json-schema file path'),\n      Joi.object().description('json-schema content')\n    ],\n    baseDirectory: Joi.string()\n      .min(2)\n      .required()\n      .description('parent directory containing the configuration file'),\n    relativeDirectory: Joi.string()\n      .min(2)\n      .optional()\n      .description('the child directory containing the configuration file'),\n    backupBeforeSave: Joi.boolean()\n      .default(false)\n      .description('true if the configuration file must be backup before save')\n  })\n  .with('encryption', ['password'])"
 		},
 		{
-			"id": 33,
+			"id": 42,
 			"name": "packSchemaPath",
 			"kind": 32,
 			"kindString": "Variable",
@@ -311,7 +578,7 @@
 			"defaultValue": "\"test-data/fixtures/pack.schema.json\""
 		},
 		{
-			"id": 30,
+			"id": 39,
 			"name": "confiture",
 			"kind": 64,
 			"kindString": "Function",
@@ -320,41 +587,42 @@
 			},
 			"signatures": [
 				{
-					"id": 31,
+					"id": 40,
 					"name": "confiture",
 					"kind": 4096,
 					"kindString": "Call signature",
 					"flags": {},
 					"parameters": [
 						{
-							"id": 32,
+							"id": 41,
 							"name": "config",
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
 							"type": {
-								"type": "intrinsic",
-								"name": "object"
+								"type": "reference",
+								"name": "ConfitureConfiguration",
+								"id": 1
 							}
 						}
 					],
 					"type": {
 						"type": "reference",
 						"name": "Confiture",
-						"id": 1
+						"id": 10
 					}
 				}
 			],
 			"sources": [
 				{
 					"fileName": "lib/confiture.ts",
-					"line": 85,
-					"character": 33
+					"line": 96,
+					"character": 25
 				}
 			]
 		},
 		{
-			"id": 106,
+			"id": 115,
 			"name": "displayError",
 			"kind": 64,
 			"kindString": "Function",
@@ -363,14 +631,14 @@
 			},
 			"signatures": [
 				{
-					"id": 107,
+					"id": 116,
 					"name": "displayError",
 					"kind": 4096,
 					"kindString": "Call signature",
 					"flags": {},
 					"parameters": [
 						{
-							"id": 108,
+							"id": 117,
 							"name": "e",
 							"kind": 32768,
 							"kindString": "Parameter",
@@ -396,7 +664,7 @@
 			]
 		},
 		{
-			"id": 19,
+			"id": 28,
 			"name": "isSchemaContent",
 			"kind": 64,
 			"kindString": "Function",
@@ -405,14 +673,14 @@
 			},
 			"signatures": [
 				{
-					"id": 20,
+					"id": 29,
 					"name": "isSchemaContent",
 					"kind": 4096,
 					"kindString": "Call signature",
 					"flags": {},
 					"parameters": [
 						{
-							"id": 21,
+							"id": 30,
 							"name": "value",
 							"kind": 32768,
 							"kindString": "Parameter",
@@ -432,13 +700,13 @@
 			"sources": [
 				{
 					"fileName": "lib/confiture.ts",
-					"line": 60,
+					"line": 71,
 					"character": 21
 				}
 			]
 		},
 		{
-			"id": 16,
+			"id": 25,
 			"name": "isSchemaFile",
 			"kind": 64,
 			"kindString": "Function",
@@ -447,14 +715,14 @@
 			},
 			"signatures": [
 				{
-					"id": 17,
+					"id": 26,
 					"name": "isSchemaFile",
 					"kind": 4096,
 					"kindString": "Call signature",
 					"flags": {},
 					"parameters": [
 						{
-							"id": 18,
+							"id": 27,
 							"name": "value",
 							"kind": 32768,
 							"kindString": "Parameter",
@@ -474,13 +742,13 @@
 			"sources": [
 				{
 					"fileName": "lib/confiture.ts",
-					"line": 56,
+					"line": 67,
 					"character": 18
 				}
 			]
 		},
 		{
-			"id": 22,
+			"id": 31,
 			"name": "loadSchema",
 			"kind": 64,
 			"kindString": "Function",
@@ -489,14 +757,14 @@
 			},
 			"signatures": [
 				{
-					"id": 23,
+					"id": 32,
 					"name": "loadSchema",
 					"kind": 4096,
 					"kindString": "Call signature",
 					"flags": {},
 					"parameters": [
 						{
-							"id": 24,
+							"id": 33,
 							"name": "value",
 							"kind": 32768,
 							"kindString": "Parameter",
@@ -516,13 +784,13 @@
 			"sources": [
 				{
 					"fileName": "lib/confiture.ts",
-					"line": 64,
+					"line": 75,
 					"character": 16
 				}
 			]
 		},
 		{
-			"id": 25,
+			"id": 34,
 			"name": "schemaValidator",
 			"kind": 64,
 			"kindString": "Function",
@@ -531,14 +799,14 @@
 			},
 			"signatures": [
 				{
-					"id": 26,
+					"id": 35,
 					"name": "schemaValidator",
 					"kind": 4096,
 					"kindString": "Call signature",
 					"flags": {},
 					"parameters": [
 						{
-							"id": 27,
+							"id": 36,
 							"name": "value",
 							"kind": 32768,
 							"kindString": "Parameter",
@@ -658,7 +926,7 @@
 									{
 										"type": "reflection",
 										"declaration": {
-											"id": 28,
+											"id": 37,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
@@ -668,7 +936,7 @@
 									{
 										"type": "reflection",
 										"declaration": {
-											"id": 29,
+											"id": 38,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
@@ -684,13 +952,13 @@
 			"sources": [
 				{
 					"fileName": "lib/confiture.ts",
-					"line": 74,
+					"line": 85,
 					"character": 21
 				}
 			]
 		},
 		{
-			"id": 40,
+			"id": 49,
 			"name": "badLodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -699,7 +967,7 @@
 			},
 			"children": [
 				{
-					"id": 43,
+					"id": 52,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -717,7 +985,7 @@
 					}
 				},
 				{
-					"id": 41,
+					"id": 50,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -736,7 +1004,7 @@
 					"defaultValue": "\"bad-lodash\""
 				},
 				{
-					"id": 44,
+					"id": 53,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -755,7 +1023,7 @@
 					"defaultValue": "\"fixtures\""
 				},
 				{
-					"id": 42,
+					"id": 51,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -779,10 +1047,10 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						43,
-						41,
-						44,
-						42
+						52,
+						50,
+						53,
+						51
 					]
 				}
 			],
@@ -799,7 +1067,7 @@
 			}
 		},
 		{
-			"id": 35,
+			"id": 44,
 			"name": "lodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -808,7 +1076,7 @@
 			},
 			"children": [
 				{
-					"id": 38,
+					"id": 47,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -826,7 +1094,7 @@
 					}
 				},
 				{
-					"id": 36,
+					"id": 45,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -845,7 +1113,7 @@
 					"defaultValue": "\"lodash\""
 				},
 				{
-					"id": 39,
+					"id": 48,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -864,7 +1132,7 @@
 					"defaultValue": "\"fixtures\""
 				},
 				{
-					"id": 37,
+					"id": 46,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -888,10 +1156,10 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						38,
-						36,
-						39,
-						37
+						47,
+						45,
+						48,
+						46
 					]
 				}
 			],
@@ -908,7 +1176,7 @@
 			}
 		},
 		{
-			"id": 51,
+			"id": 60,
 			"name": "readAes128LodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -917,7 +1185,7 @@
 			},
 			"children": [
 				{
-					"id": 56,
+					"id": 65,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -935,7 +1203,7 @@
 					}
 				},
 				{
-					"id": 53,
+					"id": 62,
 					"name": "encryption",
 					"kind": 32,
 					"kindString": "Variable",
@@ -954,7 +1222,7 @@
 					"defaultValue": "\"aes-256-cbc\""
 				},
 				{
-					"id": 52,
+					"id": 61,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -973,7 +1241,7 @@
 					"defaultValue": "\"read-lodash-aes\""
 				},
 				{
-					"id": 54,
+					"id": 63,
 					"name": "password",
 					"kind": 32,
 					"kindString": "Variable",
@@ -992,7 +1260,7 @@
 					"defaultValue": "\"confiture rocks\""
 				},
 				{
-					"id": 57,
+					"id": 66,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1011,7 +1279,7 @@
 					"defaultValue": "\"fixtures\""
 				},
 				{
-					"id": 55,
+					"id": 64,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1035,12 +1303,12 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						56,
-						53,
-						52,
-						54,
-						57,
-						55
+						65,
+						62,
+						61,
+						63,
+						66,
+						64
 					]
 				}
 			],
@@ -1057,7 +1325,7 @@
 			}
 		},
 		{
-			"id": 45,
+			"id": 54,
 			"name": "readgzLodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1066,7 +1334,7 @@
 			},
 			"children": [
 				{
-					"id": 49,
+					"id": 58,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1084,7 +1352,7 @@
 					}
 				},
 				{
-					"id": 47,
+					"id": 56,
 					"name": "compression",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1103,7 +1371,7 @@
 					"defaultValue": "\"gz\""
 				},
 				{
-					"id": 46,
+					"id": 55,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1122,7 +1390,7 @@
 					"defaultValue": "\"read-lodash-gz\""
 				},
 				{
-					"id": 50,
+					"id": 59,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1141,7 +1409,7 @@
 					"defaultValue": "\"fixtures\""
 				},
 				{
-					"id": 48,
+					"id": 57,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1165,11 +1433,11 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						49,
-						47,
-						46,
-						50,
-						48
+						58,
+						56,
+						55,
+						59,
+						57
 					]
 				}
 			],
@@ -1186,7 +1454,7 @@
 			}
 		},
 		{
-			"id": 92,
+			"id": 101,
 			"name": "writeAes128LodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1195,7 +1463,7 @@
 			},
 			"children": [
 				{
-					"id": 97,
+					"id": 106,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1213,7 +1481,7 @@
 					}
 				},
 				{
-					"id": 94,
+					"id": 103,
 					"name": "encryption",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1232,7 +1500,7 @@
 					"defaultValue": "\"aes-256-cbc\""
 				},
 				{
-					"id": 93,
+					"id": 102,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1251,7 +1519,7 @@
 					"defaultValue": "\"write-lodash\""
 				},
 				{
-					"id": 95,
+					"id": 104,
 					"name": "password",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1270,7 +1538,7 @@
 					"defaultValue": "\"confiture rocks\""
 				},
 				{
-					"id": 98,
+					"id": 107,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1289,7 +1557,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 96,
+					"id": 105,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1313,12 +1581,12 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						97,
-						94,
-						93,
-						95,
-						98,
-						96
+						106,
+						103,
+						102,
+						104,
+						107,
+						105
 					]
 				}
 			],
@@ -1335,7 +1603,7 @@
 			}
 		},
 		{
-			"id": 80,
+			"id": 89,
 			"name": "writeGzLodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1344,7 +1612,7 @@
 			},
 			"children": [
 				{
-					"id": 84,
+					"id": 93,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1362,7 +1630,7 @@
 					}
 				},
 				{
-					"id": 82,
+					"id": 91,
 					"name": "compression",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1381,7 +1649,7 @@
 					"defaultValue": "\"gz\""
 				},
 				{
-					"id": 81,
+					"id": 90,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1400,7 +1668,7 @@
 					"defaultValue": "\"write-lodash\""
 				},
 				{
-					"id": 85,
+					"id": 94,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1419,7 +1687,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 83,
+					"id": 92,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1443,11 +1711,11 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						84,
-						82,
-						81,
-						85,
-						83
+						93,
+						91,
+						90,
+						94,
+						92
 					]
 				}
 			],
@@ -1464,7 +1732,7 @@
 			}
 		},
 		{
-			"id": 58,
+			"id": 67,
 			"name": "writeLodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1473,7 +1741,7 @@
 			},
 			"children": [
 				{
-					"id": 61,
+					"id": 70,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1491,7 +1759,7 @@
 					}
 				},
 				{
-					"id": 59,
+					"id": 68,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1510,7 +1778,7 @@
 					"defaultValue": "\"write-lodash\""
 				},
 				{
-					"id": 62,
+					"id": 71,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1529,7 +1797,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 60,
+					"id": 69,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1553,10 +1821,10 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						61,
-						59,
-						62,
-						60
+						70,
+						68,
+						71,
+						69
 					]
 				}
 			],
@@ -1573,7 +1841,7 @@
 			}
 		},
 		{
-			"id": 68,
+			"id": 77,
 			"name": "writeLodashJsonWithBackup",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1582,7 +1850,7 @@
 			},
 			"children": [
 				{
-					"id": 70,
+					"id": 79,
 					"name": "backupBeforeSave",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1596,12 +1864,12 @@
 					],
 					"type": {
 						"type": "intrinsic",
-						"name": "boolean"
+						"name": "true"
 					},
 					"defaultValue": "true"
 				},
 				{
-					"id": 72,
+					"id": 81,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1619,7 +1887,7 @@
 					}
 				},
 				{
-					"id": 69,
+					"id": 78,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1638,7 +1906,7 @@
 					"defaultValue": "\"write-lodash-bak\""
 				},
 				{
-					"id": 73,
+					"id": 82,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1657,7 +1925,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 71,
+					"id": 80,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1681,11 +1949,11 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						70,
-						72,
-						69,
-						73,
-						71
+						79,
+						81,
+						78,
+						82,
+						80
 					]
 				}
 			],
@@ -1702,7 +1970,7 @@
 			}
 		},
 		{
-			"id": 99,
+			"id": 108,
 			"name": "writeSyncAes128LodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1711,7 +1979,7 @@
 			},
 			"children": [
 				{
-					"id": 104,
+					"id": 113,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1729,7 +1997,7 @@
 					}
 				},
 				{
-					"id": 101,
+					"id": 110,
 					"name": "encryption",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1748,7 +2016,7 @@
 					"defaultValue": "\"aes-256-cbc\""
 				},
 				{
-					"id": 100,
+					"id": 109,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1767,7 +2035,7 @@
 					"defaultValue": "\"write-sync-lodash\""
 				},
 				{
-					"id": 102,
+					"id": 111,
 					"name": "password",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1786,7 +2054,7 @@
 					"defaultValue": "\"confiture rocks\""
 				},
 				{
-					"id": 105,
+					"id": 114,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1805,7 +2073,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 103,
+					"id": 112,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1829,12 +2097,12 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						104,
-						101,
-						100,
-						102,
-						105,
-						103
+						113,
+						110,
+						109,
+						111,
+						114,
+						112
 					]
 				}
 			],
@@ -1851,7 +2119,7 @@
 			}
 		},
 		{
-			"id": 86,
+			"id": 95,
 			"name": "writeSyncGzLodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1860,7 +2128,7 @@
 			},
 			"children": [
 				{
-					"id": 90,
+					"id": 99,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1878,7 +2146,7 @@
 					}
 				},
 				{
-					"id": 88,
+					"id": 97,
 					"name": "compression",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1897,7 +2165,7 @@
 					"defaultValue": "\"gz\""
 				},
 				{
-					"id": 87,
+					"id": 96,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1916,7 +2184,7 @@
 					"defaultValue": "\"write-sync-lodash\""
 				},
 				{
-					"id": 91,
+					"id": 100,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1935,7 +2203,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 89,
+					"id": 98,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -1959,11 +2227,11 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						90,
-						88,
-						87,
-						91,
-						89
+						99,
+						97,
+						96,
+						100,
+						98
 					]
 				}
 			],
@@ -1980,7 +2248,7 @@
 			}
 		},
 		{
-			"id": 63,
+			"id": 72,
 			"name": "writeSyncLodashJson",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -1989,7 +2257,7 @@
 			},
 			"children": [
 				{
-					"id": 66,
+					"id": 75,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2007,7 +2275,7 @@
 					}
 				},
 				{
-					"id": 64,
+					"id": 73,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2026,7 +2294,7 @@
 					"defaultValue": "\"write-sync-lodash\""
 				},
 				{
-					"id": 67,
+					"id": 76,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2045,7 +2313,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 65,
+					"id": 74,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2069,10 +2337,10 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						66,
-						64,
-						67,
-						65
+						75,
+						73,
+						76,
+						74
 					]
 				}
 			],
@@ -2089,7 +2357,7 @@
 			}
 		},
 		{
-			"id": 74,
+			"id": 83,
 			"name": "writeSyncLodashJsonWithBackup",
 			"kind": 2097152,
 			"kindString": "Object literal",
@@ -2098,7 +2366,7 @@
 			},
 			"children": [
 				{
-					"id": 76,
+					"id": 85,
 					"name": "backupBeforeSave",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2112,12 +2380,12 @@
 					],
 					"type": {
 						"type": "intrinsic",
-						"name": "boolean"
+						"name": "true"
 					},
 					"defaultValue": "true"
 				},
 				{
-					"id": 78,
+					"id": 87,
 					"name": "baseDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2135,7 +2403,7 @@
 					}
 				},
 				{
-					"id": 75,
+					"id": 84,
 					"name": "name",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2154,7 +2422,7 @@
 					"defaultValue": "\"write-sync-lodash-bak\""
 				},
 				{
-					"id": 79,
+					"id": 88,
 					"name": "relativeDirectory",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2173,7 +2441,7 @@
 					"defaultValue": "\"temp\""
 				},
 				{
-					"id": 77,
+					"id": 86,
 					"name": "schema",
 					"kind": 32,
 					"kindString": "Variable",
@@ -2197,11 +2465,11 @@
 					"title": "Variables",
 					"kind": 32,
 					"children": [
-						76,
-						78,
-						75,
-						79,
-						77
+						85,
+						87,
+						84,
+						88,
+						86
 					]
 				}
 			],
@@ -2223,6 +2491,7 @@
 			"title": "Interfaces",
 			"kind": 256,
 			"children": [
+				10,
 				1
 			]
 		},
@@ -2230,42 +2499,42 @@
 			"title": "Variables",
 			"kind": 32,
 			"children": [
-				14,
-				12,
-				13,
-				34,
-				15,
-				33
+				23,
+				21,
+				22,
+				43,
+				24,
+				42
 			]
 		},
 		{
 			"title": "Functions",
 			"kind": 64,
 			"children": [
-				30,
-				106,
-				19,
-				16,
-				22,
-				25
+				39,
+				115,
+				28,
+				25,
+				31,
+				34
 			]
 		},
 		{
 			"title": "Object literals",
 			"kind": 2097152,
 			"children": [
-				40,
-				35,
-				51,
-				45,
-				92,
-				80,
-				58,
-				68,
-				99,
-				86,
-				63,
-				74
+				49,
+				44,
+				60,
+				54,
+				101,
+				89,
+				67,
+				77,
+				108,
+				95,
+				72,
+				83
 			]
 		}
 	]
