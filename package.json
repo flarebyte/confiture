@@ -45,7 +45,7 @@
     "trash-cli": "^3.0.0",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
-    "tslint-immutable": "^4.5.4",
+    "tslint-immutable": "^6.0.1",
     "typedoc": "^0.12.0",
     "typescript": "^3.0.1"
   },

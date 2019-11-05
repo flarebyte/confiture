@@ -3625,9 +3625,11 @@ tslint-config-prettier@^1.13.0:
   version "1.18.0"
   resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.18.0.tgz#75f140bde947d35d8f0d238e0ebf809d64592c37"
 
-tslint-immutable@^4.5.4:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/tslint-immutable/-/tslint-immutable-4.9.1.tgz#ca4555d04c3995c92c912b9e57502d423151002c"
+tslint-immutable@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/tslint-immutable/-/tslint-immutable-6.0.1.tgz#6ae3f85cc3d8fb9d465d2f9a90ed6d6c50ccd3e6"
+  dependencies:
+    tsutils "^2.28.0 || ^3.0.0"
 
 tslint@^5.10.0:
   version "5.20.0"
@@ -3646,6 +3648,12 @@ tslint@^5.10.0:
     semver "^5.3.0"
     tslib "^1.8.0"
     tsutils "^2.29.0"
+
+"tsutils@^2.28.0 || ^3.0.0":
+  version "3.17.1"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-3.17.1.tgz#ed719917f11ca0dee586272b2ac49e015a2dd759"
+  dependencies:
+    tslib "^1.8.1"
 
 tsutils@^2.29.0:
   version "2.29.0"
