@@ -344,8 +344,8 @@
     handlebars "*"
 
 "@types/hapi__joi@^16.0.2":
-  version "16.0.4"
-  resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-16.0.4.tgz#c894d6498cc64aa56b73fbc175bb2c6be8c5f543"
+  version "16.0.8"
+  resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-16.0.8.tgz#c187b8431c643cfb7691d600ecccc10fa137d26e"
 
 "@types/highlight.js@^9.12.3":
   version "9.12.3"
