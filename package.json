@@ -33,7 +33,7 @@
     "moment": "^2.24.0"
   },
   "devDependencies": {
-    "ava": "2.4.0",
+    "ava": "3.9.0",
     "codecov": "^3.0.2",
     "cz-conventional-changelog": "^2.1.0",
     "gh-pages": "^2.1.1",
