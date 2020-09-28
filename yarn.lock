@@ -343,9 +343,9 @@
   dependencies:
     handlebars "*"
 
-"@types/hapi__joi@^16.0.2":
-  version "16.0.4"
-  resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-16.0.4.tgz#c894d6498cc64aa56b73fbc175bb2c6be8c5f543"
+"@types/hapi__joi@^17.1.6":
+  version "17.1.6"
+  resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-17.1.6.tgz#b84663676aa9753c17183718338dd40ddcbd3754"
 
 "@types/highlight.js@^9.12.3":
   version "9.12.3"
